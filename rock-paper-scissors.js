@@ -10,7 +10,7 @@ function playRound(playerSelection, computerSelection){
 
     switch (true) {
         case computerSelection === playerInsensitive:
-            return("It\'s a draw! Play again");
+            return("It\'s a draw!");
             break;
         case (computerSelection === 'Rock') && (playerInsensitive === 'Paper'):
             return("You Win! Paper beats Rock");
@@ -34,3 +34,33 @@ function playRound(playerSelection, computerSelection){
             return("Please enter a valid option.");
     } 
 }
+
+function game(){
+    let playerScore = 0;
+    let computerScore = 0;
+    for(let i = 0; i < 5; i++) {
+        let result = playRound(prompt("Rock, Paper, Scissors, shoot! : "), computerPlay());
+        console.log(result);
+        if (result.includes("Win")){
+            playerScore++;
+        } else if (result.includes("Lose")){
+            computerScore++;
+        }
+    }
+    let winner;
+    if (playerScore === computerScore){
+        winner = "It\'s a tie!";
+    } else if (playerScore > computerScore){
+        winner = "Player!!";
+    } else {
+        winner = "Computer!!";
+    }
+
+    console.log(`The final result is: 
+                Player: ${playerScore}
+                Computer: ${computerScore}
+The Winner is: ${winner}`);
+
+}
+
+game();
