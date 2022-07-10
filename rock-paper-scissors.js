@@ -35,7 +35,19 @@ function playRound(playerSelection, computerSelection){
     } 
 }
 
-function game(){
+//Start the UI
+
+const buttons = document.querySelectorAll('button');
+console.log(buttons);
+
+buttons.forEach((button) => button.addEventListener('click', function(e){
+    console.log(playRound( button.id, computerPlay()))
+    })
+);
+
+//Started the UI commented out the 5 round function for later
+
+/*function game(){
     let playerScore = 0;
     let computerScore = 0;
     for(let i = 0; i < 5; i++) {
@@ -61,6 +73,6 @@ function game(){
                 Computer: ${computerScore}
 The Winner is: ${winner}`);
 
-}
+}*/
 
-game();
+//game();
