@@ -68,7 +68,10 @@ function playOnClick(e){
 
 //Start the UI
 
-const buttons = document.querySelectorAll('button');
+let buttons = document.getElementsByClassName('play');
+buttons = [...buttons];
+
+const reset = document.getElementById('reset');
 const resultDiv = document.getElementById('results');
 const roundResult = document.createElement('p');
 const runningScore = document.createElement('p');
@@ -77,6 +80,14 @@ let playerScore = 0;
 let computerScore = 0;
 
 buttons.forEach((button) => button.addEventListener('click', playOnClick));
+
+reset.addEventListener('click', () => {
+    playerScore = 0;
+    computerScore = 0;
+    roundResult.textContent = '';
+    runningScore.textContent = '';
+    buttons.forEach((button) => button.addEventListener('click', playOnClick));
+})
 
 
 resultDiv.appendChild(roundResult);
