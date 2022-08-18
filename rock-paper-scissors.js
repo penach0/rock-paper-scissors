@@ -35,44 +35,50 @@ function playRound(playerSelection, computerSelection){
     } 
 }
 
-//Start the UI
+function game(result){
 
-const buttons = document.querySelectorAll('button');
-console.log(buttons);
-
-buttons.forEach((button) => button.addEventListener('click', function(e){
-    console.log(playRound( button.id, computerPlay()))
-    })
-);
-
-//Started the UI commented out the 5 round function for later
-
-/*function game(){
-    let playerScore = 0;
-    let computerScore = 0;
-    for(let i = 0; i < 5; i++) {
-        let result = playRound(prompt("Rock, Paper, Scissors, shoot! : "), computerPlay());
-        console.log(result);
+    if(playerScore < 5 && computerScore < 5){
         if (result.includes("Win")){
             playerScore++;
         } else if (result.includes("Lose")){
             computerScore++;
         }
     }
-    let winner;
-    if (playerScore === computerScore){
-        winner = "It\'s a tie!";
-    } else if (playerScore > computerScore){
-        winner = "Player!!";
-    } else {
-        winner = "Computer!!";
+
+    runningScore.textContent = (`Player: ${playerScore} Computer: ${computerScore}`);
+
+    if (playerScore === 5){
+        runningScore.textContent = runningScore.textContent + "\n The winner is Player!!";
+    } else if (computerScore === 5){
+        runningScore.textContent = runningScore.textContent + "\n The winner is Computer!!";
     }
 
-    console.log(`The final result is: 
-                Player: ${playerScore}
-                Computer: ${computerScore}
-The Winner is: ${winner}`);
+    return(runningScore.textContent)
+}
 
-}*/
+function playOnClick(e){
+    result = playRound(e.target.id, computerPlay());
+    roundResult.textContent = result;
+    game(result);
 
-//game();
+    if(playerScore === 5 || computerScore === 5) {
+        buttons.forEach((button) => button.removeEventListener('click', playOnClick));
+    }
+}
+
+//Start the UI
+
+const buttons = document.querySelectorAll('button');
+const resultDiv = document.getElementById('results');
+const roundResult = document.createElement('p');
+const runningScore = document.createElement('p');
+
+let playerScore = 0;
+let computerScore = 0;
+
+buttons.forEach((button) => button.addEventListener('click', playOnClick));
+
+
+resultDiv.appendChild(roundResult);
+resultDiv.appendChild(runningScore);
+
